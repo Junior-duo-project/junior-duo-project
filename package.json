@@ -1,0 +1,39 @@
+{
+  "name": "junior-duo-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "create-react-app": "^3.4.1",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "mongoose": "^5.10.9",
+    "nodemon": "^2.0.5",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "webpack": "^2.2.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "react-dev": "webpack -d --watch",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alasoui/junior-duo-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alasoui/junior-duo-project/issues"
+  },
+  "homepage": "https://github.com/alasoui/junior-duo-project#readme"
+}
