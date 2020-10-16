@@ -1,7 +1,7 @@
 import React from "react";
 import $ from "jquery";
 
-class Blog extends React.Component {
+class UserBlog extends React.Component {
     constructor(props) {
       super(props);
       this.state ={
@@ -18,10 +18,10 @@ class Blog extends React.Component {
     render(){
         return(
             < div className = "blog">
-        <h3> {this.props.title}</h3>
-        <h4> {this.state.author}</h4>
-        <p> {this.props.description}</p>
-        <p> {this.props.createdAt}</p>
+        <h1> {this.props.title}</h1>
+        <h2> {this.state.author}</h2>
+        <h3> {this.props.description}</h3>
+        <h4> {this.props.createdAt}</h4>
 
 
     </div>
@@ -32,5 +32,4 @@ class Blog extends React.Component {
 }
 
 
-export default Blog;
-
+export default UserBlog;
