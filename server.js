@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const {getAllblogs,addBlog,addUser, getOwnBlogs}=require('./database/index')
+const {getAllblogs,addBlog,addUser, getOwnBlogs,getAuthor, deleteBlog, updateBlogs}=require('./database/index')
 app.use(express.static(__dirname+'/public'));
 
 app.use(bodyParser.json());
@@ -15,7 +15,11 @@ app.post('/api/user',addUser);
 
 app.get('/api/blogs/:user_Id',getOwnBlogs);
 
+app.get('/api/author/:blog_Id',getAuthor);
 
+app.delete('/api/blogs/:blog_Id',deleteBlog);
+
+app.patch('/api/blogs/:blog_Id',updateBlogs);
 
 let port= 3000;
 
