@@ -12,15 +12,22 @@ const User = require("./models/User");
 
 
 exports.getAllblogs= (req,res)=>{
-    Blog.find().then(blogs=>res.json(blogs));
+    Blog.find().sort({ createdAt: -1 }).then(blogs=>res.status(200).json(blogs))
+.catch((error) => res.status(500).send({error}))
 }
 
 exports.addBlog=(req,res)=>{
-    Blog(req.body).save().then(() =>res.end());
+    Blog(req.body).save().then((d) =>res.send(d))
+    .catch((error)=>res.status(500).send(error))
 }
 
 exports.addUser=(req,res)=>{
-    User(req.body).save().then(() =>res.end());
+    User(req.body).save().then((d) =>res.json(d));
+}
+exports.getOwnBlogs=(req,res)=>{
+    User.findOne({_id:req.params.user_Id})
+    .populate('blogs')
+    .then((user)=>res.json(user.blogs));
 }
 
 

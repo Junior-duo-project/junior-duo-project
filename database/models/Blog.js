@@ -7,8 +7,7 @@ let blogSchema = mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     description: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     createdAt: {
         type: Date,
