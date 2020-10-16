@@ -6,3 +6,62 @@ body {
     background-color: #ECF0F1;
     font-size: 1.1em;
   }
+  .blog {
+    border: 2px solid rgb(19, 17, 17);
+    border-radius: 5px;
+    margin: 25px;
+    padding-left: 30px;
+    box-shadow: 5px 10px 18px #888888;
+    width: 50%;
+   
+    align-items: center;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  li {
+    float: right;
+  }
+  
+  li  {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li :hover:not(.active) {
+    background-color: #111;
+  }
+  
+  .active {
+    background-color: #4CAF50;
+    float: left;
+ 
+  }
+  input[type=text], input[type=password],input[type=number] ,input[type=textarea]{
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #382626;
+    border-radius: 8px;
+  }
+  input[type=text]:focus, input[type=password]:focus,input[type=number]:focus ,input[type=textarea]{
+    background-color: #ddd;
+    outline: none;
+
+  }
+  .sign{
+    text-align: center;
+  }
+
+  textarea {
+    resize: none;
+  }

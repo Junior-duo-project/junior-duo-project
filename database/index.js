@@ -21,6 +21,7 @@ exports.getAllblogs = (req, res) => {
 }
 
 exports.addBlog = (req, res) => {
+
     Blog(req.body).save()
         .then((d) => User.findOneAndUpdate({
             _id: d.author
@@ -29,7 +30,7 @@ exports.addBlog = (req, res) => {
         }, {
             new: true
         }))
-        .then((d) => res.json(d))
+        .then((d) => res.send(d))
         .catch((error) => res.status(500).send(error))
 }
 
@@ -74,4 +75,11 @@ exports.updateBlogs = (req, res) => {
             new: true
         })
         .then(blog => res.json(blog));
+}
+
+exports.getAllUsers = (req, res) => {
+    User.find() .then(users => res.status(200).json(users))
+    .catch((error) => res.status(500).send({
+        error
+    }))
 }
