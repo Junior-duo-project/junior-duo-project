@@ -16,9 +16,9 @@ class App extends React.Component {
     this.state = {
       blogs: [],
       users: [],
-      ownBlogs:[],
+      ownBlogs: [],
       author: "",
-      view: "blogList",
+      view: "logIn",
       currentUser: ""
 
     };
@@ -38,36 +38,39 @@ class App extends React.Component {
       });
     })
   }
-  
-  login(email,pass){
 
-    // for(let i=0;i<this.state.users.length;i++){
-    //   if(this.state.users[i].email!==email&&i===this.state.users.length-1
-    //     // ||this.state.users[i].passWord!==pass&&i===this.state.users.length-1
-    //     ){
-    //       alert('please sign up');
-    //       return;
-    //     }
-    // }
+  login(email, pass) {
+
+   
 
     $.ajax({
       url: '/api/login',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-          email:email
+        email: email
       })
-  }).then(s=>this.setState({
-    currentUser:s
-  }))
-    $.get('/api/blogs/'+this.state.currentUser,(data)=>{
+    }).then(s => this.setState({
+      currentUser: s
+    }))
+    $.get('/api/blogs/' + this.state.currentUser, (data) => {
       console.log(this.state.currentUser)
       this.setState({
-        ownBlogs:data
+        ownBlogs: data
       })
       console.log(this.state.ownBlogs)
     })
-      
+
+
+    // for(let i=0;i<this.state.users.length;i++){
+    //   if(this.state.users[i].email===email&&this.state.users[i].passWord===pass){
+    //     this.changeView("blogList")
+    //     }
+    //     return alert('please sign up');
+       
+    // }
+    
+    this.changeView("blogList")
   }
 
 
@@ -79,16 +82,14 @@ class App extends React.Component {
 
   renderView() {
 
-    if (this.state.view === "signUp") {
-      return <SignUp users={this.state.users} changeView={this.changeView} SignUp={this.SignUp} />
-    } else if (this.state.view === "blogList") {
+    if (this.state.view === "blogList") {
       return <BlogList blogs={this.state.blogs} />
     } else if (this.state.view === "userBlogList") {
-      return <UserBlogList ownBlogs={this.state.ownBlogs}/>
+      return <UserBlogList changeview={this.changeView} ownBlogs={this.state.ownBlogs} />
     } else if (this.state.view === "create") {
       return <CreateBlog currentUser={this.state.currentUser} changeView={this.changeView} />
-    }else if (this.state.view === "logIn") {
-      return <Login login={this.login}/>
+    } else if (this.state.view === "logIn") {
+      return <Login login={this.login} />
     }
   }
 
@@ -96,23 +97,26 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        {(this.state.view === "logIn")?<div className="loginsign"><Login login={this.login}/>
+        <SignUp users={this.state.users} changeView={this.changeView} SignUp={this.SignUp}/></div>:
         <div>
-          <ul>
-            <li className="active">Blogging</li>
-            <li onClick={() => this.changeView("create")}>Create Blog</li>
-            <li onClick={() => this.changeView("userBlogList")}>My Blogs</li>
-            <li onClick={() => this.changeView("blogList")} >See All Blogs</li>
-            <li onClick={() => this.changeView("signUp")}>Log Out</li>
-            <li onClick={() => this.changeView("logIn")}>Log in</li>
-          </ul>
-        </div>
-        <div>
-          <h1>Share your story and knowledge</h1>
           <div>
-            {this.renderView()}
+            <ul>
+              <li className="active">Blogging</li>
+              <li onClick={() => this.changeView("create")}>Create Blog</li>
+              <li onClick={() => this.changeView("userBlogList")}>My Blogs</li>
+              <li onClick={() => this.changeView("blogList")} >See All Blogs</li>
+              <li onClick={() => this.changeView("logIn")}>Log Out</li>
+            </ul>
           </div>
+          <div>
+            <h1>Share your story and knowledge</h1>
+            <div>
+              {this.renderView()}
+            </div>
 
-        </div>
+          </div>
+        </div>}
       </div>
     )
   }
