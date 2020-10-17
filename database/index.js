@@ -83,3 +83,7 @@ exports.getAllUsers = (req, res) => {
         error
     }))
 }
+
+exports.getUserId = (req,res)=>{
+    User.findOne({email:req.body.email}).then(user=>res.json(user._id))
+}

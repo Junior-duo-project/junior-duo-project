@@ -9,9 +9,7 @@ class SignUp extends React.Component {
             name: "",
             email: "",
             password: "",
-            country: "",
-            signIn: "singnIn",
-            user: ""
+            country: "", 
         }
 
     }
@@ -48,21 +46,22 @@ class SignUp extends React.Component {
     render() {
         return (
             <div className='sign'>
-                <label htmlFor="name"><b>Name: </b></label>
+                <center>
+               
                 <input type="text" placeholder="Name" name="name" id="name" required onChange={this.myChangeHandler.bind(this)}></input><br/>
-                <label  htmlFor="email"><b>Email: </b></label>
+            
                 <input type="text" placeholder="Enter Email" name="email" id="email" required onChange={this.myChangeHandler.bind(this)}></input><br/>
 
-                <label  htmlFor="psw"><b>Password: </b></label>
+             
                 <input type="password" placeholder="Enter Password" name="psw" id="psw" required onChange={this.myChangeHandler.bind(this)}></input><br/>
 
-                <label  htmlFor="number"><b>Phone Number: </b></label>
+              
                 <input type="number" placeholder="Phone Number" name="phone" id="phone" required onChange={this.myChangeHandler.bind(this)}></input><br/><br/>
-                <label  htmlFor="country"><b>Country: </b></label>
+    
                 <input type="text" placeholder="Country" name="country" id="country" required onChange={this.myChangeHandler.bind(this)}></input><br/>
                 <br />
-                <button onClick={() => {this.SignUp(); this.props.changeView("blogList"); this.props.checkCurrentUser(this.state.user)}}>Sign Up</button>
-
+                <button onClick={() => {this.SignUp(); this.props.changeView("blogList")}}>Sign Up</button>
+                </center>
             </div>
         )
     }
