@@ -1,34 +1,55 @@
 import React from "react";
-import $ from "jquery";
+import moment from "moment";
+import $ from 'jquery';
 
 class UserBlog extends React.Component {
     constructor(props) {
-      super(props);
-      this.state ={
-          author:""
-      }
+        super(props);
+        this.state={
+            show:true,
+            edited:false
+        }
     }
-    componentDidMount(){
-        $.get("/api/author/" + this.props.blogId , (newData) => {
-            this.setState({
-            author : newData
-            });
-          })
+
+    changeState(){
+        this.setState({
+            show:false
+        })
     }
-    render(){
-        return(
-            < div className = "blog">
-        <h1> {this.props.title}</h1>
-        <h2> {this.state.author}</h2>
-        <h3> {this.props.description}</h3>
-        <h4> {this.props.createdAt}</h4>
 
+    delete(){
+        $.ajax({
+            url: '/api/blogs/'+this.props.blog._id,
+            type: 'DELETE',
+            success: function(result) {
+                console.log(result)
+            }
+        });
+    }
 
-    </div>
+    // edit(){
+    //     $.ajax({
+    //         url: '/api/blogs/'+this.props.blog._id,
+    //         type: 'PATCH',
+    //         data: {status: 'some status'}
+    //     });
+    // }
+
+    render() {
+        return (
+            <div>
+                {(this.state.show)?
+            < div className="userblog">
+                <h1> {this.props.blog.title}</h1>
+                <h3> {this.props.blog.description}</h3>
+                <h4> {moment(this.props.blog.createdAt).fromNow()}</h4>
+                <button onClick={()=>{this.delete();this.changeState()}}>Delete</button><button>Edit</button>
+            </div>:null}
+            </div>
 
         )
     }
-    
+
 }
 
 

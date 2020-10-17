@@ -5,6 +5,7 @@ import BlogList from "./component/BlogList.jsx";
 import SignUp from "./component/SignUp.jsx"
 import UserBlogList from './component/userBlogList.jsx';
 import CreateBlog from './component/CreateBlog.jsx';
+import Login from './component/Login.jsx';
 
 
 
@@ -15,14 +16,15 @@ class App extends React.Component {
     this.state = {
       blogs: [],
       users: [],
+      ownBlogs:[],
       author: "",
-      view: "signUp",
-      currentUser:""
+      view: "blogList",
+      currentUser: ""
 
     };
     this.changeView = this.changeView.bind(this);
     this.renderView = this.renderView.bind(this);
-    this.checkCurrentUser = this.checkCurrentUser.bind(this);
+    this.login = this.login.bind(this);
   }
   componentDidMount() {
     $.get("/api/blogs", (newData) => {
@@ -36,12 +38,38 @@ class App extends React.Component {
       });
     })
   }
+  
+  login(email,pass){
 
-  checkCurrentUser(user){
-    this.setState({
-      currentUser: user
+    // for(let i=0;i<this.state.users.length;i++){
+    //   if(this.state.users[i].email!==email&&i===this.state.users.length-1
+    //     // ||this.state.users[i].passWord!==pass&&i===this.state.users.length-1
+    //     ){
+    //       alert('please sign up');
+    //       return;
+    //     }
+    // }
+
+    $.ajax({
+      url: '/api/login',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+          email:email
+      })
+  }).then(s=>this.setState({
+    currentUser:s
+  }))
+    $.get('/api/blogs/'+this.state.currentUser,(data)=>{
+      console.log(this.state.currentUser)
+      this.setState({
+        ownBlogs:data
+      })
+      console.log(this.state.ownBlogs)
     })
+      
   }
+
 
   changeView(form) {
     this.setState({
@@ -50,17 +78,18 @@ class App extends React.Component {
   }
 
   renderView() {
-    
+
     if (this.state.view === "signUp") {
-      return <SignUp users={this.state.users} changeView = {this.changeView} checkCurrentUser = {this.checkCurrentUser}/>
+      return <SignUp users={this.state.users} changeView={this.changeView} SignUp={this.SignUp} />
     } else if (this.state.view === "blogList") {
       return <BlogList blogs={this.state.blogs} />
     } else if (this.state.view === "userBlogList") {
-      return <UserBlogList />
+      return <UserBlogList ownBlogs={this.state.ownBlogs}/>
     } else if (this.state.view === "create") {
-      return <CreateBlog currentUser = {this.state.currentUser} changeView = {this.changeView}/>
+      return <CreateBlog currentUser={this.state.currentUser} changeView={this.changeView} />
+    }else if (this.state.view === "logIn") {
+      return <Login login={this.login}/>
     }
-
   }
 
 
@@ -70,10 +99,11 @@ class App extends React.Component {
         <div>
           <ul>
             <li className="active">Blogging</li>
-            <li onClick={() =>this.changeView("create")}>Create Blog</li>
-            <li onClick={()=>this.changeView("userBlogList")}>My Blogs</li>
-            <li onClick={()=>this.changeView("blogList")} >See All Blogs</li>
-            <li onClick={()=>this.changeView("signUp")}>Log Out</li>
+            <li onClick={() => this.changeView("create")}>Create Blog</li>
+            <li onClick={() => this.changeView("userBlogList")}>My Blogs</li>
+            <li onClick={() => this.changeView("blogList")} >See All Blogs</li>
+            <li onClick={() => this.changeView("signUp")}>Log Out</li>
+            <li onClick={() => this.changeView("logIn")}>Log in</li>
           </ul>
         </div>
         <div>
