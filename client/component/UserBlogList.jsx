@@ -13,7 +13,7 @@ class UserBlogList extends React.Component {
     render() {
         return(
             <div>
-            {this.props.ownBlogs.map((blog,i) => <UserBlog key = {i} blog = {blog}/> )}    
+            {this.props.ownBlogs.map((blog,i) => <UserBlog changeview={this.props.changeview} key = {i} blog = {blog}/> )}    
             </div>
         )
     }
