@@ -19,14 +19,14 @@ class SignUp extends React.Component {
         this.setState({ [nam]: val });
     }
     SignUp() {
-        // let users = this.props.users;
-        // for (let i = 0; i < users.length; i++) {
-        //     if (users[i].name === this.state.name
-        //         || users[i].email === this.state.email) {
-        //         alert("this account already exist");
-        //         return;
-        //     }
-        // }
+        let users = this.props.users;
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].name === this.state.name
+                || users[i].email === this.state.email) {
+                alert("this account already exist");
+                return;
+            }
+        }
 
         $.ajax({
             url: '/api/user',
@@ -60,7 +60,7 @@ class SignUp extends React.Component {
     
                 <input type="text" placeholder="Country" name="country" id="country" required onChange={this.myChangeHandler.bind(this)}></input><br/>
                 <br />
-                <button onClick={() => {this.SignUp(); this.props.changeView("blogList")}}>Sign Up</button>
+                <button onClick={this.SignUp.bind(this)}>Sign Up</button>
                 </center>
             </div>
         )

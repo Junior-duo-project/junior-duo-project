@@ -21,6 +21,7 @@ class CreateBlog extends React.Component {
                 author: this.props.currentUser
             })
         })
+        this.props.changeView('blogList')
     }
 
     myChangeHandler(event) {
